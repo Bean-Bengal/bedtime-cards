@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bedtime Cards</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #1f2a3a; color: #f3eedd; font-family: system-ui, sans-serif; line-height: 1.5; }
+  .container { max-width: 480px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 1.8rem; margin: 8px 0 16px; }
+  .card { background: #2f3f57; border-left: 6px solid #7ac47a; border-radius: 10px; padding: 12px 16px; margin-bottom: 12px; }
+  .card h2 { font-size: 1.1rem; margin: 0 0 4px; }
+  .card p { margin: 0; }
+  #check { font-size: .85rem; padding: 8px 12px; border-radius: 8px; margin-bottom: 12px; }
+  .pass { background: #2d5a33; }
+  .fail { background: #7a2f2f; }
+</style>
+</head>
+<body>
+<div class="container" id="box">
+  <h1>Before Bed</h1>
+  <div id="check">checking...</div>
+  <div class="card"><h2>1. Cloak</h2><p>Hang the green cloak on the box flap.</p></div>
+  <div class="card"><h2>2. Sketch</h2><p>Pin up today's drawing, even the bad one.</p></div>
+  <div class="card"><h2>3. Beanbag</h2><p>Turn the tiny TV off. Sleep.</p></div>
+</div>
+<script>
+  function checkWidth() {
+    var box = document.getElementById('box');
+    var w = box.getBoundingClientRect().width;
+    var vw = document.documentElement.clientWidth;
+    var scrolls = document.documentElement.scrollWidth > vw;
+    var ok = w <= 480 && !scrolls && w <= vw;
+    var el = document.getElementById('check');
+    el.textContent = (ok ? 'Pass' : 'Fail') + ': container ' + Math.round(w) + 'px in ' + vw + 'px screen' + (scrolls ? ', sideways scroll!' : ', no sideways scroll');
+    el.className = ok ? 'pass' : 'fail';
+  }
+  try { checkWidth(); window.addEventListener('resize', checkWidth); }
+  catch (e) { document.getElementById('check').textContent = 'Check broke: ' + e.message; }
+</script>
+</body>
+</html>
